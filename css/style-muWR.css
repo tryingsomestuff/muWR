@@ -1,0 +1,16 @@
+#muWR{
+        background-color:white;
+	margin: auto;
+        text-align: center;
+        color: #a9a9a9;
+        font-family: monospace;
+        width: 500px;
+        border-radius: 5px;
+        padding: 10px;
+}
+
+#muWR > *{
+        margin: 10px;
+        text-align: center;
+}
+
