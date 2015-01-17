@@ -3,8 +3,10 @@ a micro web radio : simple, light, just need php on the server side, just use jq
 
 A very simple html sample page is given but feel free to instanciate a muWR container in your own page.
 
-```<div id="muWR"></div>
-<script>var z = new muWR($('#muWR'));</script>```
+```
+<div id="muWR"></div>
+<script>var z = new muWR($('#muWR'));</script>
+```
 
 is enough to do so.
 
