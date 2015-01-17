@@ -73,14 +73,16 @@
            $warn="Bad r parameter. "; 
            $dorandom=0;
         }
+        $dorandom=intval($dorandom);
       }
       $useri=0;
       if(isset($_GET["i"])){
         $useri=htmlspecialchars($_GET["i"]);
-        if ( ! is_int($useri) ){
-           $warn="Bad i parameter. "; 
+        if ( ! is_numeric($useri) ){
+           $warn="Bad i parameter : " . $useri ; 
            $useri=0;
         }
+        $useri=intval($useri);
       }
       
       // find something we can read
