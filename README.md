@@ -1,7 +1,5 @@
 # muWR
-a micro web radio : simple, light, just need php on the server side
-
-Just use jquery, bootstrap and typeahead.
+a micro web radio : simple, light, just need php on the server side, just use jquery, bootstrap, typeahead and a HTML5 audio tag on the client side.
 
 A very simple html sample page is given but feel free to instanciate a muWR container in your own page.
 
