@@ -126,11 +126,11 @@
       }
 
       // update list of played song in played.txt
-      $file = "played.txt";
-      $fh = fopen($file, 'a') or die("can't open file");
-      $date = date('m/d/Y h:i:s a', time());
-      fwrite($fh, $date . " : " . $filename . "\n");
-      fclose($fh);
+      //$file = TMP_DIR . "played.txt";
+      //$fh = fopen($file, 'a') or die("can't open file");
+      //$date = date('m/d/Y h:i:s a', time());
+      //fwrite($fh, $date . " : " . $filename . "\n");
+      //fclose($fh);
 
       $tobeplayed=TMP_DIR . "m." . session_id() . '.' . $ext . "?" . $i;
 
