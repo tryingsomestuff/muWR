@@ -4,8 +4,10 @@ a micro web radio : simple, light, just need php on the server side
 Just use jquery, bootstrap and typeahead.
 
 A very simple html sample page is given but feel free to instanciate a muWR container in your own page.
+
 ```<div id="muWR"></div>
 <script>var z = new muWR($('#muWR'));</script>```
+
 is enough to do so.
 
 # How to install muWR :
