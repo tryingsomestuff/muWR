@@ -1,4 +1,8 @@
-function muWR(c){
+function muWR(c,nodb){
+
+       nodb = typeof nodb !== 'undefined' ? nodb : false;
+
+       console.log("nodb is " + nodb);
 
        // class members
        var warn;
@@ -23,9 +27,14 @@ function muWR(c){
        +"   <a href=\"#\"><img id=\"muWR_next\" width=48 src=\"images/next.png\"></a>"
        +"   <a href=\"#\"><img id=\"muWR_shuffle\" width=48 src=\"images/shuffle.png\"></a>"
        +"</p>"
-       +"<p><input id=\"muWR_search\" class=\"typeahead\" type=\"text\" placeholder=\"Search for a song here !\"></p>"
-       +"<p><div class=\"muWR_songtitle\" id=\"muWR_song\"></div></p>"
-       +"<p><div id=\"muWR_loading\"> ... Loading please wait ... </div></p>";
+
+       if ( nodb == false ){
+          muWR_html += "<p><input id=\"muWR_search\" class=\"typeahead\" type=\"text\" placeholder=\"Search for a song here !\"></p>"
+          dbloaded=true;
+       }
+       muWR_html +=
+                 "<p><div class=\"muWR_songtitle\" id=\"muWR_song\"></div></p>"
+                 +"<p><div id=\"muWR_loading\"> ... Loading please wait ... </div></p>";
 
        // add the html muWR content to the given container
        c.append(muWR_html);

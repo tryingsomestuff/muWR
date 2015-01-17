@@ -21,7 +21,7 @@
       $json = array('w' => $warn, 
                     'm' => "", 
                     'i' => -1, 
-                    'd' => JSON_INDEX, 
+                    'd' => "", 
                     's' => "", 
                     'ri' => -1, 
                     'rr' => -1, 
@@ -44,7 +44,7 @@
       $json = array('w' => $warn, 
                     'm' => "", 
                     'i' => -1, 
-                    'd' => JSON_INDEX, 
+                    'd' => "", 
                     's' => "", 
                     'ri' => -1, 
                     'rr' => -1, 
@@ -53,18 +53,6 @@
       return;
    }
    else{
-      // if index does not exist, create it
-      if(!file_exists(FILE_INDEX)){
-         // for some reason the sort is not working completly...
-         // sed is use to reduce the json size 
-         // removing MP3_ROOT from file names
-         shell_exec('find ' . MP3_ROOT . ' -type f -iname "*.mp3" -o -iname "*.flac" | sort -fd | sed \'s@' . MP3_ROOT . '@@\' > ' . FILE_INDEX);
-         shell_exec('(echo "[" ; while read line ; do echo "\"$line\","; done < ' . FILE_INDEX  . ' ; echo "\"dummy_last\"" ; echo "]") > ' . JSON_INDEX);
-      }
-
-      // read the file to fill an array
-      $index = file(FILE_INDEX);
-      
       // get the api params
       $dorandom=0;
       if(isset($_GET["r"])){
@@ -75,6 +63,15 @@
         }
         $dorandom=intval($dorandom);
       }
+      $nodb=0;
+      if(isset($_GET["d"])){
+        $nodb=htmlspecialchars($_GET["d"]);
+        if ( $nodb != 0 && $nodb != 1 ){
+           $warn="Bad d parameter. "; 
+           $nodb=0;
+        }
+        $nodb=intval($nodb);
+      }
       $useri=0;
       if(isset($_GET["i"])){
         $useri=htmlspecialchars($_GET["i"]);
@@ -84,6 +81,24 @@
         }
         $useri=intval($useri);
       }
+      
+      // if index does not exist, create it
+      if(!file_exists(FILE_INDEX)){
+         // for some reason the sort is not working completly...
+         // sed is use to reduce the json size 
+         // removing MP3_ROOT from file names
+         shell_exec('find ' . MP3_ROOT . ' -type f -iname "*.mp3" -o -iname "*.flac" | sort -fd | sed \'s@' . MP3_ROOT . '@@\' > ' . FILE_INDEX);
+         if ( $nodb == 0 ){
+            shell_exec('(echo "[" ; while read line ; do echo "\"$line\","; done < ' . FILE_INDEX  . ' ; echo "\"dummy_last\"" ; echo "]") > ' . JSON_INDEX);
+            $jsonindex = "";
+         }
+         else{
+            $jsonindex = JSON_INDEX;
+         }
+      }
+
+      // read the file to fill an array
+      $index = file(FILE_INDEX);
       
       // find something we can read
       $ext="";
@@ -139,7 +154,7 @@
       $json = array('w' => $warn, 
                     'm' => $tobeplayed, 
                     'i' => $i, 
-                    'd' => JSON_INDEX, 
+                    'd' => $jsonindex, 
                     's' => $filename, 
                     'ri' => $useri, 
                     'rr' => $dorandom, 
