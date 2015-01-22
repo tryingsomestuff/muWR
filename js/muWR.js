@@ -30,6 +30,8 @@ function muWR(c,nodb){
 
        if ( nodb == false ){
           muWR_html += "<p><input id=\"muWR_search\" class=\"typeahead\" type=\"text\" placeholder=\"Search for a song here !\"></p>"
+       }
+       else{
           dbloaded=true;
        }
        muWR_html +=
