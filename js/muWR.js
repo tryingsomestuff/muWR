@@ -1,5 +1,6 @@
 function muWR(c,nodb){
 
+
        nodb = typeof nodb !== 'undefined' ? nodb : false;
 
        console.log("nodb is " + nodb);
@@ -28,11 +29,11 @@ function muWR(c,nodb){
        +"   <a href=\"#\"><img id=\"muWR_shuffle\" width=48 src=\"images/shuffle.png\"></a>"
        +"</p>"
 
-       if ( nodb == false ){
-          muWR_html += "<p><input id=\"muWR_search\" class=\"typeahead\" type=\"text\" placeholder=\"Search for a song here !\"></p>"
+       if ( nodb ){
+          dbloaded=true;
        }
        else{
-          dbloaded=true;
+          muWR_html += "<p><input id=\"muWR_search\" class=\"typeahead\" type=\"text\" placeholder=\"Search for a song here !\"></p>"
        }
        muWR_html +=
                  "<p><div class=\"muWR_songtitle\" id=\"muWR_song\"></div></p>"
@@ -40,8 +41,6 @@ function muWR(c,nodb){
 
        // add the html muWR content to the given container
        c.append(muWR_html);
-
-       //$('#muWR_loading').hide();
 
        // set source in audio tag
        function changeSource(){
@@ -63,9 +62,6 @@ function muWR(c,nodb){
 
        // async call to api to get next song
        function getNew(param){
-
-          $('#muWR_loading').show();
-          
           if ( sid < 0 ){
              apiurl = "muWRapi.php?"+param;
           }
@@ -74,6 +70,8 @@ function muWR(c,nodb){
           }
           console.log("Api call : " + apiurl);
           
+          $('#muWR_loading').show();
+
           $.getJSON( apiurl, function( data ){
              warn = data['w'];
              muzikfile = data['m'];
@@ -90,12 +88,12 @@ function muWR(c,nodb){
              console.log("index : " + muzikindex);
              console.log("db : " + dbfile);
 
-             $('#muWR_loading').hide();
-          
              if ( warn != "" ){
                 $('#muWR_song').html("ERROR : " + warn);
                 return;
              }
+
+             $('#muWR_loading').hide(); 
 
              getDB(); // will call setAudio
           });
@@ -108,7 +106,9 @@ function muWR(c,nodb){
           }
           else{
              console.log("Downloading db");
+
              $('#muWR_loading').show();
+
              $.getJSON( dbfile , function( data ) {
                 console.log("Loading db");
                 $('#muWR_search').typeahead({ // this is slow
@@ -125,9 +125,9 @@ function muWR(c,nodb){
                     console.log("Requested song with id : " + i);
                     getNew("i="+i);
                 });
-                $('#muWR_loading').hide();
                 console.log("ok, db is loaded");
 
+                $('#muWR_loading').hide(); 
                 setAudio();
              });
           }

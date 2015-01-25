@@ -39,7 +39,7 @@
    exec('lsof ' . TMP_DIR . 'm.' . session_id() . '.mp3', $output, $ret);
    exec('lsof ' . TMP_DIR . 'm.' . session_id() . '.MP3', $output2, $ret2);
 
-   if ( $ret == 0 || $ret2 == 0 ){ // file is used !
+   if ( false /*$ret == 0 || $ret2 == 0*/ ){ // file is used !
       $warn="Currently read by another ... wait for sync... ";
       $json = array('w' => $warn, 
                     'm' => "", 
@@ -90,10 +90,10 @@
          shell_exec('find ' . MP3_ROOT . ' -type f -iname "*.mp3" -o -iname "*.flac" | sort -fd | sed \'s@' . MP3_ROOT . '@@\' > ' . FILE_INDEX);
          if ( $nodb == 0 ){
             shell_exec('(echo "[" ; while read line ; do echo "\"$line\","; done < ' . FILE_INDEX  . ' ; echo "\"dummy_last\"" ; echo "]") > ' . JSON_INDEX);
-            $jsonindex = "";
+            $jsonindex = JSON_INDEX;
          }
          else{
-            $jsonindex = JSON_INDEX;
+            $jsonindex = "";
          }
       }
 
