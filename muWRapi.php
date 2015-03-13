@@ -33,11 +33,11 @@
    define('MP3_ROOT', '/mnt/hdd2/MP3/');
    define('FILE_INDEX', TMP_DIR . 'index.' . session_id() . '.id');
    define('JSON_INDEX', TMP_DIR . 'index.' . session_id() . '.json');
+   define('OUT_MUSIC_EXT', '.mp3');
 
    ///////// UPDATE     /////////
    // check if still in use (shall not happend with session)
-   exec('lsof ' . TMP_DIR . 'm.' . session_id() . '.mp3', $output, $ret);
-   exec('lsof ' . TMP_DIR . 'm.' . session_id() . '.MP3', $output2, $ret2);
+   exec('lsof ' . TMP_DIR . 'm.' . session_id() . OUT_MUSIC_EXT, $output, $ret);
 
    if ( false /*$ret == 0 || $ret2 == 0*/ ){ // file is used !
       $warn="Currently read by another ... wait for sync... ";
@@ -135,11 +135,12 @@
       if ( $ext == "flac" || $ext == "FLAC" ){ // flac case, convert mp3
          // change $ext to use converted file
          $ext="mp3"; 
-         shell_exec('ffmpeg -i "' . MP3_ROOT . "/" . $filename . '" ' . ' ' . TMP_DIR . 'm.' . session_id() . '.mp3');
+         shell_exec('ffmpeg -i "' . MP3_ROOT . "/" . $filename . '" ' . ' ' . TMP_DIR . 'm.' . session_id() . OUT_MUSIC_EXT);
       }
       else{ // mp3
          //shell_exec('ln -sf "' . $filename . '" ' . TMP_DIR . 'm.' . session_id() . '.' . $ext);
-         shell_exec('cp "' . MP3_ROOT . "/" . $filename . '" ' . TMP_DIR . 'm.' . session_id() . '.' . $ext);
+         //shell_exec('cp "' . MP3_ROOT . "/" . $filename . '" ' . TMP_DIR . 'm.' . session_id() . '.' . $ext);
+         shell_exec('ffmpeg -i "' . MP3_ROOT . "/" . $filename . '" ' . ' ' . TMP_DIR . 'm.' . session_id() . OUT_MUSIC_EXT);
       }
 
       // update list of played song in played.txt
@@ -149,7 +150,7 @@
       //fwrite($fh, $date . " : " . $filename . "\n");
       //fclose($fh);
 
-      $tobeplayed=TMP_DIR . "m." . session_id() . '.' . $ext . "?" . $i;
+      $tobeplayed=TMP_DIR . "m." . session_id() . OUT_MUSIC_EXT . "?" . $i;
 
       $json = array('w' => $warn, 
                     'm' => $tobeplayed, 
