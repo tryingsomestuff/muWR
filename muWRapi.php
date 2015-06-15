@@ -10,8 +10,8 @@
    srand(make_seed());
 
    ///////// SESSION    /////////
-   $id=session_id($_GET['PHPSESSID']);
-   session_start();
+   $id=session_id();
+   if (empty($id)) session_start();
 
    ///////// PARAMETERS /////////
    define('TMP_DIR', 'muWRtmp/');
@@ -81,7 +81,8 @@
         }
         $useri=intval($useri);
       }
-      
+     
+      $jsonindex=""; 
       // if index does not exist, create it
       if(!file_exists(FILE_INDEX)){
          // for some reason the sort is not working completly...
