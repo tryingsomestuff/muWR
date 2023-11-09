@@ -123,7 +123,7 @@
          }
          // save the current $i
          $_SESSION['cur_index']=$i;
-         
+
          // get the musik filename
          $filename=trim($index[$i]);
          // and its extension
@@ -140,8 +140,8 @@
       }
       else{ // mp3
          //shell_exec('ln -sf "' . $filename . '" ' . TMP_DIR . 'm.' . session_id() . '.' . $ext);
-         //shell_exec('cp "' . MP3_ROOT . "/" . $filename . '" ' . TMP_DIR . 'm.' . session_id() . '.' . $ext);
-         shell_exec('ffmpeg -i "' . MP3_ROOT . "/" . $filename . '" ' . ' ' . TMP_DIR . 'm.' . session_id() . OUT_MUSIC_EXT);
+         shell_exec('cp "' . MP3_ROOT . "/" . $filename . '" ' . TMP_DIR . 'm.' . session_id() . OUT_MUSIC_EXT);
+         //shell_exec('ffmpeg -i "' . MP3_ROOT . "/" . $filename . '" ' . ' ' . TMP_DIR . 'm.' . session_id() . OUT_MUSIC_EXT);
       }
 
       // update list of played song in played.txt
