@@ -30,7 +30,7 @@
       return;
    }
 
-   define('MP3_ROOT', '/mnt/hdd2/MP3/');
+   define('MP3_ROOT', '/home/debian/muWR/library/');
    define('FILE_INDEX', TMP_DIR . 'index.' . session_id() . '.id');
    define('JSON_INDEX', TMP_DIR . 'index.' . session_id() . '.json');
    define('OUT_MUSIC_EXT', '.mp3');
