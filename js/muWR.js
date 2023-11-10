@@ -50,8 +50,20 @@ function muWR(c,nodb){
        }
 
        // update audio tag with new source
+       function extractLink(name){
+          var rx = /.*\[(.*)\]\.mp3/g;
+	  var match = rx.exec(name);
+	  console.log(name);
+	  console.log(match);
+	  if (match.length > 1){
+   	     return match[1]; 
+	  }
+	  else return "????";
+       }
+
        function setAudio(){
-          $('#muWR_song').html(muzikname);
+          ytlink=extractLink(muzikname);
+          $('#muWR_song').html(muzikname + "<br> <a href=\"https://youtube.com/watch?v=" + ytlink + "\"> see on youtube</a>");
           var audio = $('#muWR_player');
           audio.trigger('pause');
           changeSource();
@@ -71,6 +83,10 @@ function muWR(c,nodb){
           console.log("Api call : " + apiurl);
           
           $('#muWR_loading').show();
+	  $('#muWR_next').hide();
+	  $('#muWR_shuffle').hide();
+	  setTimeout(function(){$('#muWR_next').show()},2000);
+	  setTimeout(function(){$('#muWR_shuffle').show()},2000);
 
           $.getJSON( apiurl, function( data ){
              warn = data['w'];
