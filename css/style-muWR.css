@@ -1,16 +1,43 @@
-#muWR{
-        background-color:white;
-	margin: auto;
+#muWR {
+        background-color: white;
+        margin: auto;
         text-align: center;
         color: #a9a9a9;
         font-family: monospace;
-        width: 500px;
+        width: 700px;
         border-radius: 5px;
         padding: 10px;
 }
 
-#muWR > *{
+#muWR>* {
         margin: 10px;
         text-align: center;
 }
 
+#muWR_list {
+        border: 1px;
+        border-radius: 15px;
+        border: solid;
+        color: #8f8f8f;
+        border-color: rgb(236, 236, 236);
+}
+
+.muWR_id_w {
+        background-color: rgb(236, 236, 236);
+        color: #a9a9a9;
+}
+
+.muWR_id_b {
+        background-color: white;
+        color: #a9a9a9;
+}
+
+.muWR_id_w:hover {
+        background-color: rgb(255, 249, 213);
+        color: #222222;
+}
+
+.muWR_id_b:hover {
+        background-color: rgb(255, 249, 213);
+        color: #222222;
+}

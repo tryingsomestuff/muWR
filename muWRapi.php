@@ -30,7 +30,7 @@
       return;
    }
 
-   define('MP3_ROOT', '/home/debian/muWR/library/');
+   define('MP3_ROOT', '/mnt/hdd2/MP3/MP3_new/');
    define('FILE_INDEX', TMP_DIR . 'index.' . session_id() . '.id');
    define('JSON_INDEX', TMP_DIR . 'index.' . session_id() . '.json');
    define('OUT_MUSIC_EXT', '.mp3');
@@ -72,12 +72,12 @@
         }
         $nodb=intval($nodb);
       }
-      $useri=0;
+      $useri=-1;
       if(isset($_GET["i"])){
         $useri=htmlspecialchars($_GET["i"]);
         if ( ! is_numeric($useri) ){
            $warn="Bad i parameter : " . $useri ; 
-           $useri=0;
+           $useri=-1;
         }
         $useri=intval($useri);
       }
@@ -91,20 +91,22 @@
          shell_exec('find ' . MP3_ROOT . ' -type f -iname "*.mp3" -o -iname "*.flac" | sort -fd | sed \'s@' . MP3_ROOT . '@@\' > ' . FILE_INDEX);
          if ( $nodb == 0 ){
             shell_exec('(echo "[" ; while read line ; do echo "\"$line\","; done < ' . FILE_INDEX  . ' ; echo "\"dummy_last\"" ; echo "]") > ' . JSON_INDEX);
-            $jsonindex = JSON_INDEX;
-         }
-         else{
-            $jsonindex = "";
          }
       }
 
       // read the file to fill an array
       $index = file(FILE_INDEX);
+      if ( $nodb == 0 ){
+         $jsonindex = JSON_INDEX;
+      }
+      else{
+         $jsonindex = "";
+      }
       
       // find something we can read
       $ext="";
       while ( $ext != "mp3" && $ext != "MP3" && $ext != "flac" && $ext != "FLAC" ){ // should be right anyway...
-         if ( $useri != 0 ){ // if user forced $i
+         if ( $useri != -1 ){ // if user forced $i
             $i = $useri;
          }
          else{
