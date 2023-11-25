@@ -84,7 +84,7 @@
      
       $jsonindex=""; 
       // if index does not exist, create it
-      if(!file_exists(FILE_INDEX)){
+      #if(!file_exists(FILE_INDEX)){
          // for some reason the sort is not working completly...
          // sed is use to reduce the json size 
          // removing MP3_ROOT from file names
@@ -92,7 +92,7 @@
          if ( $nodb == 0 ){
             shell_exec('(echo "[" ; while read line ; do echo "\"$line\","; done < ' . FILE_INDEX  . ' ; echo "\"dummy_last\"" ; echo "]") > ' . JSON_INDEX);
          }
-      }
+      #}
 
       // read the file to fill an array
       $index = file(FILE_INDEX);
