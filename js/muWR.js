@@ -42,6 +42,7 @@ function muWR(c, nodb) {
 	}
 
 	muWR_html += "<p><div class=\"muWR_list\" id=\"muWR_list\"> Playlist </div></p>"
+	muWR_html += "<p>Wanna <a href=\"https://github.com/tryingsomestuff/muWR\"> contribute</a>? </p>"
 
 	// add the html muWR content to the given container
 	c.append(muWR_html);
